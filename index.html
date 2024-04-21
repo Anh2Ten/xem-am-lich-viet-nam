@@ -6,6 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://unpkg.com/tailwindcss@^2.2/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+    body {
+    background-image: url('https://www.shutterstock.com/image-illustration/beautiful-fantasy-amazing-digital-art-600nw-2313849145.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+    </style>
 </head>
 
 <body class="bg-gray-100">
@@ -16,29 +23,28 @@
             <hr class="my-2 border-b-2 border-gray-300">
             <div class="px-4">
                 <div class="bg-gray-300 rounded px-2 py-3 font-semibold">
-                    <p class="text-sm" id="year">Loading...</p>
                     <span id="date">Loading...</span>
                     <span id="month">Loading...</span>
+                    <span id="year">Loading...</span>
                 </div>
-            </div>
-        </div>
+            </div> 
+        </div> 
     </div>
-
+ 
     <script>
-        const data = {
-            date: 13,
-            month: 3,
-            year: 2024
-        };
-
         fetch('https://dailythuonghien.com/am-lich/api.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({})  
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             document.getElementById('date').textContent = `Ngày: ${data.date}`;
             document.getElementById('month').textContent = `Tháng: ${data.month}`;
